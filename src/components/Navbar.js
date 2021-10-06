@@ -1,4 +1,4 @@
-import { AppBar, Badge, Box, IconButton, Tab, Tabs, Toolbar, Typography, MenuIcon } from '@material-ui/core'
+import { AppBar, Badge, Box, IconButton, Tab, Tabs, Toolbar, Typography, MenuIcon, Hidden } from '@material-ui/core'
 import React from 'react'
 import { Link } from "react-router-dom"
 import { makeStyles } from '@material-ui/styles';
@@ -13,10 +13,10 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 // import MenuIcon from "@material-ui/icons/Menu";
 
 
+
 const useStyles = makeStyles((theme) => ({
   container: {
-    width: '900px',
-    margin: '0 auto',
+    ...theme.container
     // border: '1px yellow dotted'
     },
   iconWrap: {
@@ -35,6 +35,10 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: '10px'
     }
     
+  },
+  hamburger: {
+    fontSize: '35px',
+    marginRight:'10px'
   }
 }));
 
@@ -46,11 +50,18 @@ export default function Navbar() {
    <Box>
     <AppBar position='static'>
       <Toolbar className={classes.container}>
-        
-          {/* < MenuIcon /> */}
-        
+        <Hidden mdUp>
+          <IconButton
+            edge = 'start'
+            color='inherit'
+            arial-label = 'menu' 
+            >
+            {/* < MenuIcon className={classes.hamburger}/> */}
+          </IconButton>
 
+      </Hidden>
       <Typography component='h6'> JOBPLUS </Typography>
+      <Hidden smDown>
         <Tabs value={1} className={classes.tabs}>
           <Tab
             key={0}
@@ -71,6 +82,7 @@ export default function Navbar() {
             to = {'/job-applications'}
           />
         </Tabs>
+      </Hidden>
 
         <Box className={classes.iconWrap}>
           <IconButton size="small" component={Link} to={'/search'} color={'inherit'}>
