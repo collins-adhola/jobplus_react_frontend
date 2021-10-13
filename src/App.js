@@ -1,22 +1,25 @@
 // eslint-disable-next-line
 import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter, useHistory } from 'react-router-dom';
+import { BrowserRouter,Route, Switch, useHistory, routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Cookie from './components/Cookie';
+import Home from './pages/Home';
 
 function App() {
-  let history = useHistory();
+  let history = useHistory()
   return (
-    
-   <>
-    <BrowserRouter history= {history}>
-     <Navbar />
-     <Cookie />
-     <Footer />
+  <>
+    <BrowserRouter history={history}>
+      <Navbar />
+      <Switch>
+        <Route exact path='/' render={props => <Home {...props} />} />
+      </Switch>
+      <Cookie />
+      <Footer />
     </BrowserRouter>
-   </>
+  </>
   );
 }
 
