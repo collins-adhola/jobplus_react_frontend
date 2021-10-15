@@ -2,6 +2,7 @@ import React from 'react'
 import {makeStyles} from '@material-ui/styles';
 import { Hidden } from '@material-ui/core';
 import Filter from './Filter'
+import Listing from './Listing'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,8 +35,8 @@ export default function ListingFilter() {
         </Hidden>  
       </div>
       <div className={classes.rblock}>
-        <p>Listings 1</p>
-        <p>Listings 2</p>
+        < Listing />
+        < Listing />
       </div>     
     </div>
   )
