@@ -1,196 +1,218 @@
-import { AppBar, Badge, Box, IconButton, Tab, Tabs, Toolbar, Typography, Hidden, Drawer, Divider, ListItem, ListItemText, List } from '@material-ui/core'
-import React from 'react'
-import { Link } from "react-router-dom"
-import { makeStyles } from '@material-ui/styles';
-
-
-
+import Tabs from '@material-ui/core/Tabs';
+import { useState, useEffect } from 'react';
+import Tab from '@material-ui/core/Tab';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import MenuIcon from "@material-ui/icons/Menu";
-
-
-
+import Badge from '@material-ui/core/Badge';
+import { makeStyles } from '@material-ui/styles';
+import Hidden from '@material-ui/core/Hidden';
+import Box from '@material-ui/core/Box';
+import Drawer from '@material-ui/core/Drawer';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import {useState, useEffect } from 'react';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import { useTheme } from '@material-ui/core/styles';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import { Link } from "react-router-dom";
 
+const drawerWidth = '100%';
 
 const useStyles = makeStyles((theme) => ({
+
+  root: {
+    '& .MuiIconButton-root': {
+      paddingRight: 0,
+    }
+  },
   container: {
-    ...theme.container
-   
-    },
-  iconWrap: {
-    marginLeft: 'auto',  
-    '& .MuiButtonBase-root': {
-      marginLeft: '13px'
-    },
-    '& .MuiSvgIcon-root' : {
-      fontSize: '27px'
+    ...theme.container,
+    padding: '0',
+    '& h6': {
+      ...theme.fonts.bold,
     }
   },
   tabs: {
-    '& .MuiTab-root': {
-      minWidth: 10,
-      marginLeft: '10px'
-    }
-    
-  },
-  hamburger: {
-    fontSize: '35px',
-    marginRight:'10px'
-  },
-  logo: {
-    ...theme.fonts.bold
+    minWidth: 10,
+    marginLeft: '10px'
   },
   badge: {
     backgroundColor: theme.palette.error.main,
     border: '1px white solid',
   },
-  indicator: {
-    backgroundColor: theme.palette.common.light,
+  iconsWrap: {
+    marginLeft: 'auto',
+    '& .MuiButtonBase-root': {
+      marginLeft: '13px',
+    }
+  },
+  icons: {
+    fontSize: '29px',
+    // marginLeft: '13px'
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: drawerWidth,
   },
   drawerHeader: {
     display: 'flex',
-    justifyContent: 'flex-end',
     alignItems: 'center',
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
+    justifyContent: 'flex-end',
   },
- 
+  hamburger: {
+    fontSize: '2rem',
+    marginRight: '15px',
+  },
+  indicator: {
+    backgroundColor: theme.palette.common.light,
+  }
 }));
 
-
-
-export default function Navbar() {
+export default function Navbar(props) {
   const classes = useStyles();
+
+  const theme = useTheme();
   const [openDrawer, setOpenDrawer] = useState(false);
 
-  const handleDrawerOpen = ()=> {
-    setOpenDrawer(true)
+  const handleDrawerOpen = () => {
+    setOpenDrawer(true);
+  };
 
-  }
-   const handleDrawerClose = ()=> {
-    setOpenDrawer(false)  
-   }
-   const [tabIndex, setTabIndex] = useState(false);
+  const handleDrawerClose = () => {
+    setOpenDrawer(false);
+  };
 
-   const handleTabIndexChange = (event, index) => {
-     setTabIndex(index)
-   }
+  const routes = [
+    { name: 'Home', link: '/', index: 0 },
+    { name: 'Job Listings', link: '/job-listings', index: 1 },
+    { name: 'Job Applications', link: '/job-applications', index: 2 }
+  ];
 
-   const routes = [
-     {name:'Home', link:'/', index:0},
-     {name:'Job Listings', link:'/job-listings', index:1},
-     {name:'Job Applications', link:'/job-applications', index:2},
-   ]
+  const [tabIndex, setTabIndex] = useState(false);
+  const handleTabIndexChange = (e, index) => {
+    setTabIndex(index);
+  };
 
-   useEffect(() => {
-     console.log('use effect....')
-     routes.forEach(route => {
-       switch (window.location.pathname) {
-         case `${route.link}`:
-           setTabIndex(route.index);
-           break;
-           default:
-             return false;
-       }
-     })
-   },[window.location.pathway])
-   
+  // takes care of setting active link when refreshed
+  useEffect(() => {
+    routes.forEach(route => {
+      switch (window.location.pathname) {
+        case `${route.link}`:
+          setTabIndex(route.index);
+          break;
+        default:
+          return false;
+      }
+    });
+  });
+
   return (
-   <Box>
-    <AppBar position='static'>
-      <Toolbar className={classes.container}>
-        <Hidden mdUp>
-          <IconButton
-            edge = 'start'
-            color='inherit'
-            arial-label = 'menu' 
-            onClick={handleDrawerOpen}
+    <Box className={classes.root}>
+      <AppBar position="static">
+        <Toolbar className={classes.container}>
+          <Hidden mdUp>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              onClick={handleDrawerOpen}
             >
-            < MenuIcon className={classes.hamburger}/>
-          </IconButton>
+              <MenuIcon className={classes.hamburger} />
+            </IconButton>
+          </Hidden>
 
-      </Hidden>
-      <Typography component='h6' className={classes.logo}> JOBPLUS </Typography>
-      <Hidden smDown>
-        <Tabs 
-          value={tabIndex} 
-          onChange={handleTabIndexChange}
-          className={classes.tabs} 
-          classes={{indicator: classes.indicator}}>
-          {routes.map ((route, index) => (
-            <Tab
-              key={`${route}${index}`}
-              label={route.name}
-              component={Link}
-              to = {'route.link'}
-           />
+          <Typography component="h6">JOBPLUS</Typography>
 
-          ))}
-    
-        </Tabs>
-      </Hidden>
+          <Hidden smDown>
+            <Tabs
+              value={tabIndex}
+              onChange={handleTabIndexChange}
+              classes={{ indicator: classes.indicator }}
+            >
+              {routes.map((route, index) => (
+                <Tab
+                  key={`${route}${index}`}
+                  className={classes.tabs}
+                  label={route.name}
+                  component={Link}
+                  to={route.link}
+                />
+              ))}
+            </Tabs>
+          </Hidden>
 
-        <Box className={classes.iconWrap}>
-          <IconButton size="small" component={Link} to={'/search'} color={'inherit'}>
-            <SearchIcon />         
-          </IconButton>
+          <Box className={classes.iconsWrap}>
+            <IconButton onClick={() => { setTabIndex(-1) }} size="small" component={Link} to={'/search'} edge="start" color="inherit">
+              <SearchIcon className={classes.icons} />
+            </IconButton>
+            <IconButton onClick={() => { setTabIndex(-1) }} size="small" component={Link} to={'/notifications'} edge="start" color="inherit">
+              <Badge color="error" overlap="circle" variant="dot">
+                <NotificationsNoneIcon className={classes.icons} />
+              </Badge>
+            </IconButton>
+            <IconButton onClick={() => { setTabIndex(-1) }} size="small" component={Link} to={'/saved-jobs'} edge="start" color="inherit" >
+              <Badge badgeContent={2} classes={{ badge: classes.badge }}>
+                <StarBorderIcon className={classes.icons} />
+              </Badge>
+            </IconButton>
+            <IconButton onClick={() => { setTabIndex(-1) }} size="small" component={Link} to={'/profile'} edge="start" color="inherit">
+              <PersonOutlineIcon className={classes.icons} />
+            </IconButton>
+            <IconButton onClick={() => { setTabIndex(-1) }} size="small" component={Link} to={'/login'} edge="start" color="inherit">
+              <ExitToAppIcon className={classes.icons} />
+            </IconButton>
+          </Box>
+        </Toolbar>
+      </AppBar>
 
-          <IconButton size="small" component={Link} to={'/notifications'} color={'inherit'}>
-            <Badge color='error' overlap="circular" variant="dot"> 
-              <NotificationsNoneIcon />  
-            </Badge>
-          </IconButton>
-
-          <IconButton size="small" component={Link} to={'/saved-jobs'} color='inherit' edge={'start'}>
-            <Badge badgeContent={2} classes={{badge: classes.badge}}> 
-              <StarBorderIcon />
-            </Badge>
-          </IconButton>
-
-          <IconButton size="small" component={Link} to={'/search'} color={'inherit'}>
-            <PersonOutlineIcon />         
-          </IconButton>
-
-          <IconButton size="small" component={Link} to={'/search'} color={'inherit'}>
-            <ExitToAppIcon />         
-          </IconButton>
-
-        </Box>
-      </Toolbar>
-          
-    </AppBar>
-      <Drawer variant="persistent" anchor="left" open={openDrawer}>
+      <Drawer
+        className={classes.drawer}
+        variant="persistent"
+        anchor="left"
+        open={openDrawer}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
         <div className={classes.drawerHeader}>
           <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
+            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </div>
-          <Divider />
+        <Divider />
         <List>
-        {routes.map((route, index) => (
-          <ListItem
-            key={`${route}${index}`}
-            component={Link}
-            to={route.link}
-            selected={window.location.pathname===route.link}
-            onClick= {handleDrawerClose}
-            button>
-             <ListItemText primary={route.name} />
-          
-          </ListItem>
-        ))}
+          {routes.map((route, index) => (
+            <ListItem
+              key={`${route}${index}`}
+              component={Link}
+              to={route.link}
+              onClick={handleDrawerClose}
+              selected={window.location.pathname === route.link}
+              button>
+              <ListItemText primary={route.name} />
+            </ListItem>
+          ))}
         </List>
       </Drawer>
-         
 
- 
-   </Box>
+    </Box>
   )
 }
