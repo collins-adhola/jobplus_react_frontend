@@ -11,7 +11,7 @@ import JobApplications from './pages/JobApplications';
 import Search from './pages/Search';
 import Notifications from './pages/Notifications';
 import SavedJobs from './pages/SavedJobs';
-import Profile from './pages/Profile'
+import Profile from './pages/Profile';
 
 
 function App() {

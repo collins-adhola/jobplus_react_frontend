@@ -4,9 +4,7 @@ import Form from '../components/Form';
 import PaperForm from '../components/PaperForm';
 import PageTitle from '../components/PageTitle';
 
-
-
-export default function Profile(props) {
+export default function Profile() {
   const sectors = [
     { name: 'Technology' },
     { name: 'Engineering' },
@@ -17,7 +15,7 @@ export default function Profile(props) {
     <>
       <PageTitle title='Profile' />
 
-      <PaperForm >
+      <PaperForm>
         <Form>
           <Controls.FormGroupCustom>
             <Controls.InputLabelCustom color='primary' label="Desired job title" />
@@ -29,7 +27,7 @@ export default function Profile(props) {
             <Controls.TextFieldCustom placeholder="Min per annum salary" />
           </Controls.FormGroupCustom>
 
-          {/* <Controls.FormGroupCustom>
+          <Controls.FormGroupCustom>
             <Controls.InputLabelCustom color='primary' label="Job type" />
             <Controls.CheckboxCustom value='Permanent' />
             <Controls.CheckboxCustom value='Temporary' />
@@ -48,7 +46,7 @@ export default function Profile(props) {
 
           <Controls.FormGroupCustom>
             <Controls.ButtonCustom text="Submit" />
-          </Controls.FormGroupCustom> */}
+          </Controls.FormGroupCustom>
         </Form>
       </PaperForm>
     </>
