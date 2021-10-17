@@ -163,20 +163,20 @@ export default function Navbar(props) {
             <IconButton onClick={() => { setTabIndex(-1) }} size="small" component={Link} to={'/search'} edge="start" color="inherit">
               <SearchIcon className={classes.icons} />
             </IconButton>
-            <IconButton onClick={() => { setTabIndex(-1) }} size="small" component={Link} to={'/notifications'} edge="start" color="inherit">
+            <IconButton  size="small" component={Link} to={'/notifications'} edge="start" color="inherit">
               <Badge color="error" overlap="circle" variant="dot">
                 <NotificationsNoneIcon className={classes.icons} />
               </Badge>
             </IconButton>
-            <IconButton onClick={() => { setTabIndex(-1) }} size="small" component={Link} to={'/saved-jobs'} edge="start" color="inherit" >
+            <IconButton  size="small" component={Link} to={'/saved-jobs'} edge="start" color="inherit" >
               <Badge badgeContent={2} classes={{ badge: classes.badge }}>
                 <StarBorderIcon className={classes.icons} />
               </Badge>
             </IconButton>
-            <IconButton onClick={() => { setTabIndex(-1) }} size="small" component={Link} to={'/profile'} edge="start" color="inherit">
+            <IconButton size="small" component={Link} to={'/profile'} edge="start" color="inherit">
               <PersonOutlineIcon className={classes.icons} />
             </IconButton>
-            <IconButton onClick={() => { setTabIndex(-1) }} size="small" component={Link} to={'/login'} edge="start" color="inherit">
+            <IconButton size="small" component={Link} to={'/login'} edge="start" color="inherit">
               <ExitToAppIcon className={classes.icons} />
             </IconButton>
           </Box>
