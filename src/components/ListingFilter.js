@@ -24,19 +24,35 @@ rblock: {
 }));
 
 
-export default function ListingFilter() {
+export default function ListingFilter(props) {
   const classes = useStyles();
+  const { components } = props;
+
+  const sectors = [
+    {link: '/', name: 'Technology', count:14 },
+    {link: '/', name: 'Engineer', count:200 },
+    {link: '/', name: 'Health', count:13 },
+  ];
+  
+
+  const locations = [
+    {link: '/', name: 'Jobs in London', count:230 },
+    {link: '/', name: 'Jobs in West London', count:200 },
+    {link: '/', name: 'Jobs in Yorkshire', count:25 },
+  ];
+
   return (
     <div className={classes.root}>
       <div className={classes.lblock}>
         <Hidden Hidden smDown>
-         <Filter />
-         <Filter />
+         <Filter title= "Browse by Sector" items={sectors} />
+         <Filter title= "Browse by Location" items={locations}/>
         </Hidden>  
       </div>
       <div className={classes.rblock}>
-        < Listing />
-        < Listing />
+        {components.map((comp) =>(
+          comp
+        ))}
       </div>     
     </div>
   )
